@@ -101,7 +101,21 @@ int main(int argc, char** argv)
 	}
 	XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_INFO, "启动服务中，启动进程管理线程成功");
 
-	XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_INFO, "启动服务中，所有服务已经启动完毕,程序运行中,XEngine版本:%s,服务器发行次数:%d,版本;%s", BaseLib_OperatorVer_XNumberStr(), st_ServiceConfig.st_XVer.pStl_ListVer->size(), st_ServiceConfig.st_XVer.pStl_ListVer->front().c_str());
+	for (auto stl_ListIterator = st_ConfigList.pStl_ListApp->begin(); stl_ListIterator != st_ConfigList.pStl_ListApp->end(); stl_ListIterator++)
+	{
+		if (stl_ListIterator->bEnable)
+		{
+			XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_INFO, _X("启动服务中，加载守护进程:%s,成功,开始守护进程"), stl_ListIterator->tszAPPName);
+		}
+		else
+		{
+			XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_WARN, _X("启动服务中，加载守护进程:%s,成功,此项目未启用"), stl_ListIterator->tszAPPName);
+		}
+	}
+	XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_INFO, _X("启动服务中，加载守护进程列表成功,加载的列表个数:%d"), st_ConfigList.pStl_ListApp->size());
+	
+	XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_INFO, "启动服务中，所有服务已经启动完毕,程序运行中,XEngine版本:%s%s,服务器发行次数:%d,版本;%s", BaseLib_OperatorVer_XNumberStr(), BaseLib_OperatorVer_XTypeStr(), st_ServiceConfig.st_XVer.pStl_ListVer->size(), st_ServiceConfig.st_XVer.pStl_ListVer->front().c_str());
+
 	while (true)
 	{
 		std::this_thread::sleep_for(std::chrono::seconds(1));
