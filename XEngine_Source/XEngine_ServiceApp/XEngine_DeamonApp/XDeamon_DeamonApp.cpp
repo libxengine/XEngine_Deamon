@@ -2,6 +2,7 @@
 
 bool bIsRun = false;
 XHANDLE xhLog = NULL;
+unique_ptr<thread> pSTDThread = NULL;
 XENGINE_SERVICECONFIG st_ServiceConfig;
 XENGINE_CONFIGAPP st_ConfigList;
 
@@ -12,6 +13,11 @@ void ServiceApp_Stop(int signo)
 		XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_WARN, "服务器退出...");
 		bIsRun = false;
 
+		if (NULL != pSTDThread)
+		{
+			pSTDThread->join();
+			pSTDThread = NULL;
+		}
 		HelpComponents_XLog_Destroy(xhLog);
 		exit(0);
 	}
@@ -87,6 +93,14 @@ int main(int argc, char** argv)
 #endif
 	}
 	
+	pSTDThread = make_unique<thread>(APPManage_Thread_Process);
+	if (NULL == pSTDThread)
+	{
+		XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_ERROR, "启动服务中，启动进程管理线程失败");
+		goto NETSERVICE_APPEXIT;
+	}
+	XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_INFO, "启动服务中，启动进程管理线程成功");
+
 	XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_INFO, "启动服务中，所有服务已经启动完毕,程序运行中,XEngine版本:%s,服务器发行次数:%d,版本;%s", BaseLib_OperatorVer_XNumberStr(), st_ServiceConfig.st_XVer.pStl_ListVer->size(), st_ServiceConfig.st_XVer.pStl_ListVer->front().c_str());
 	while (true)
 	{
@@ -98,6 +112,11 @@ NETSERVICE_APPEXIT:
 		XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_WARN, "后台控制服务关闭，服务器退出...");
 		bIsRun = false;
 
+		if (NULL != pSTDThread)
+		{
+			pSTDThread->join();
+			pSTDThread = NULL;
+		}
 		HelpComponents_XLog_Destroy(xhLog);
 	}
 

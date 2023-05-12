@@ -2,8 +2,8 @@
 
 bool XDeamon_Parament(int argc, char **argv)
 {
-    LPCXSTR lpszBaseCfg = "./XControl_Config/XEngine_Config.json";
-    LPCXSTR lpszListCfg = "./XControl_Config/XEngine_ConfigList.json";
+    LPCXSTR lpszBaseCfg = "./XEngine_Config/XEngine_Config.json";
+    LPCXSTR lpszListCfg = "./XEngine_Config/XEngine_ConfigList.json";
 
     if (!ModuleConfigure_Json_File(lpszBaseCfg, &st_ServiceConfig))
     {

@@ -186,23 +186,20 @@ BOOL CModuleConfigure_Json::ModuleConfigure_Json_LoadList(LPCSTR lpszConfigFile,
 		Config_dwErrorCode = ERROR_MODULE_CONFIGURE_JSON_PARSE;
 		return FALSE;
 	}
-	int nListCount = st_JsonRoot["ListCount"].asInt();
-	Json::Value st_JsonArray = st_JsonRoot["ListArray"];
 
+	Json::Value st_JsonArray = st_JsonRoot["ListArray"];
 	pSt_AppConfig->pStl_ListApp = new list<XENGINE_APPINFO>;
-	for (int i = 0; i < nListCount; i++)
+	for (unsigned int i = 0; i < st_JsonRoot["ListArray"].size(); i++)
 	{
 		XENGINE_APPINFO st_APPInfo;
 		memset(&st_APPInfo, '\0', sizeof(XENGINE_APPINFO));
 
-		strcpy(st_APPInfo.tszAPPName, st_JsonArray[i]["APPName"].asCString());
-		strcpy(st_APPInfo.tszAPPPath, st_JsonArray[i]["APPPath"].asCString());
-		st_APPInfo.bShow = st_JsonArray[i]["APPShow"].asInt();
-		st_APPInfo.bAutoStart = st_JsonArray[i]["APPAutoStart"].asInt();
-		st_APPInfo.bService = st_JsonArray[i]["APPService"].asInt();
-		st_APPInfo.nReTime = st_JsonArray[i]["APPReTime"].asInt();
-		st_APPInfo.bEnable = st_JsonArray[i]["APPEnable"].asInt();
-
+		strcpy(st_APPInfo.tszAPPName, st_JsonArray[i]["tszAPPName"].asCString());
+		strcpy(st_APPInfo.tszAPPPath, st_JsonArray[i]["tszAPPPath"].asCString());
+		st_APPInfo.bEnable = st_JsonArray[i]["bEnable"].asBool();
+		st_APPInfo.bService = st_JsonArray[i]["bAPPService"].asBool();
+		st_APPInfo.nReTime = st_JsonArray[i]["nAPPReTime"].asInt();
+		
 		pSt_AppConfig->pStl_ListApp->push_back(st_APPInfo);
 	}
 	return TRUE;

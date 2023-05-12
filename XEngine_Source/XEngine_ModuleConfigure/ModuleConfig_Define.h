@@ -38,11 +38,9 @@ typedef struct tag_XEngine_ServiceConfig
 //用户进程列表
 typedef struct
 {
+	BOOL bEnable;                      //是否启用
 	CHAR tszAPPName[MAX_PATH];         //应用程序名称
 	CHAR tszAPPPath[MAX_PATH];         //应用程序路径
-	BOOL bShow;                        //显示还是隐藏 
-	BOOL bAutoStart;                   //是否自动启动
-	BOOL bEnable;                      //是否启用
 	BOOL bService;                     //是否为服务启动
 	int nReTime;                       //是否自动重启
 	//自定义

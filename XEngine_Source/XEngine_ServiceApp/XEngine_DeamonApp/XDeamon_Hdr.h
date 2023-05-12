@@ -5,7 +5,6 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <netinet/in.h>
 #endif
 #include <stdio.h>
 #include <stdlib.h>
@@ -43,6 +42,7 @@ using namespace std;
 *********************************************************************/
 extern bool bIsRun;
 extern XHANDLE xhLog;
+extern unique_ptr<thread> pSTDThread;
 extern XENGINE_SERVICECONFIG st_ServiceConfig;
 extern XENGINE_CONFIGAPP st_ConfigList;
 
