@@ -1,0 +1,18 @@
+{
+  "ListArray":[
+      {
+          "bEnable":false,
+          "tszAPPName":"RadarVision_APPExample.exe",
+          "tszAPPPath":"D:\\radar-vision\\RV_Sdk\\RVRelease\\",
+          "bAPPService":false,
+          "nAPPReTime":5
+      },
+      {
+          "bEnable":false,
+          "tszAPPName":"ifconfig",
+          "tszAPPPath":"/usr/sbin/",
+          "bAPPService":false,
+          "nAPPReTime":0
+      }
+  ]
+}

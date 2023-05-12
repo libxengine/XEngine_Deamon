@@ -1,0 +1,16 @@
+# XDeamon systemd service file
+
+[Unit]
+Description=XEngine XDeamon Service
+Documentation=httpwww.xyry.org
+After=network.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=forking
+PIDFile=xdeamon.pid
+ExecStart=usrs/bin/XEngine_Deamon/XEngine_DeamonApp
+ExecReload=binkill -s HUP $MAINPID
+ExecStop=binkill -s QUIT $MAINPID
