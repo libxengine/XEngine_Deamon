@@ -81,21 +81,9 @@ BOOL CModuleConfigure_Json::ModuleConfigure_Json_File(LPCTSTR lpszConfigFile, XE
 		Config_dwErrorCode = ERROR_MODULE_CONFIGURE_JSON_PARSE;
 		return FALSE;
 	}
-	_tcscpy(pSt_ServerConfig->tszIPAddr, st_JsonRoot["tszIPAddr"].asCString());
-	pSt_ServerConfig->bDeamon = st_JsonRoot["bDeamon"].asInt();
-	pSt_ServerConfig->nPort = st_JsonRoot["nPort"].asInt();
-	//最大配置
-	if (st_JsonRoot["XMax"].empty() || (4 != st_JsonRoot["XMax"].size()))
-	{
-		Config_IsErrorOccur = TRUE;
-		Config_dwErrorCode = ERROR_MODULE_CONFIGURE_JSON_XMAX;
-		return FALSE;
-	}
-	Json::Value st_JsonXMax = st_JsonRoot["XMax"];
-	pSt_ServerConfig->st_XMax.nMaxClient = st_JsonXMax["nMaxClient"].asInt();
-	pSt_ServerConfig->st_XMax.nMaxQueue = st_JsonXMax["nMaxQueue"].asInt();
-	pSt_ServerConfig->st_XMax.nIOThread = st_JsonXMax["nIOThread"].asInt();
-	pSt_ServerConfig->st_XMax.nThread = st_JsonXMax["nThread"].asInt();
+	pSt_ServerConfig->bDeamon = st_JsonRoot["bDeamon"].asBool();
+	pSt_ServerConfig->bAutoStart = st_JsonRoot["bAutoStart"].asBool();
+	pSt_ServerConfig->bHideWnd = st_JsonRoot["bHideWnd"].asBool();
 	//时间配置
 	if (st_JsonRoot["XTime"].empty() || (2 != st_JsonRoot["XTime"].size()))
 	{
@@ -104,16 +92,17 @@ BOOL CModuleConfigure_Json::ModuleConfigure_Json_File(LPCTSTR lpszConfigFile, XE
 		return FALSE;
 	}
 	Json::Value st_JsonXTime = st_JsonRoot["XTime"];
+	pSt_ServerConfig->st_XTime.nTimeError = st_JsonXTime["nTimeError"].asInt();
 	pSt_ServerConfig->st_XTime.nTimeCheck = st_JsonXTime["nTimeCheck"].asInt();
-	pSt_ServerConfig->st_XTime.nTimeOut = st_JsonXTime["nTimeOut"].asInt();
 	//日志配置
-	if (st_JsonRoot["XLog"].empty() || (3 != st_JsonRoot["XLog"].size()))
+	if (st_JsonRoot["XLog"].empty() || (4 != st_JsonRoot["XLog"].size()))
 	{
 		Config_IsErrorOccur = TRUE;
 		Config_dwErrorCode = ERROR_MODULE_CONFIGURE_JSON_XLOG;
 		return FALSE;
 	}
 	Json::Value st_JsonXLog = st_JsonRoot["XLog"];
+	_tcsxcpy(pSt_ServerConfig->st_XLog.tszLogFile, st_JsonXLog["tszLogFile"].asCString());
 	pSt_ServerConfig->st_XLog.nMaxSize = st_JsonXLog["MaxSize"].asInt();
 	pSt_ServerConfig->st_XLog.nMaxCount = st_JsonXLog["MaxCount"].asInt();
 	pSt_ServerConfig->st_XLog.nLogLeave = st_JsonXLog["LogLeave"].asInt();

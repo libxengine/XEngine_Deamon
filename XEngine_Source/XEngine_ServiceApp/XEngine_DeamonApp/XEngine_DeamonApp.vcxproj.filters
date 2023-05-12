@@ -15,30 +15,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="XEngine_DeamonApp.cpp">
+    <ClCompile Include="XDeamon_DeamonApp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="XEngine_APPEvents.cpp">
+    <ClCompile Include="XDeamon_Process.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="XEngine_Service.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="XEngine_Process.cpp">
+    <ClCompile Include="XDeamon_Config.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="XEngine_APPEvents.h">
+    <ClInclude Include="XDeamon_Hdr.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="XEngine_Hdr.h">
+    <ClInclude Include="XDeamon_Process.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="XEngine_Service.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="XEngine_Process.h">
+    <ClInclude Include="XDeamon_Config.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

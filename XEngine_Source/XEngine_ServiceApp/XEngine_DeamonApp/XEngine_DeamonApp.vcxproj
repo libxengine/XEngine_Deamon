@@ -82,7 +82,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -131,16 +131,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="XEngine_APPEvents.cpp" />
-    <ClCompile Include="XEngine_DeamonApp.cpp" />
-    <ClCompile Include="XEngine_Process.cpp" />
-    <ClCompile Include="XEngine_Service.cpp" />
+    <ClCompile Include="XDeamon_Config.cpp" />
+    <ClCompile Include="XDeamon_DeamonApp.cpp" />
+    <ClCompile Include="XDeamon_Process.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="XEngine_APPEvents.h" />
-    <ClInclude Include="XEngine_Hdr.h" />
-    <ClInclude Include="XEngine_Process.h" />
-    <ClInclude Include="XEngine_Service.h" />
+    <ClInclude Include="XDeamon_Config.h" />
+    <ClInclude Include="XDeamon_Hdr.h" />
+    <ClInclude Include="XDeamon_Process.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

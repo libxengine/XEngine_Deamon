@@ -1,4 +1,4 @@
-﻿#include "XControl_Hdr.h"
+﻿#include "XDeamon_Hdr.h"
 
 BOOL APPManage_CreateService(XENGINE_APPINFO *pSt_APPInfo)
 {
@@ -42,8 +42,8 @@ BOOL APPManage_Thread_Process()
 	while (bIsRun)
 	{
 		//轮询检测进程列表
-		list<XENGINE_APPINFO>::iterator stl_ListIterator = st_APPConfig.pStl_ListApp->begin();
-		for (; stl_ListIterator != st_APPConfig.pStl_ListApp->end(); stl_ListIterator++)
+		list<XENGINE_APPINFO>::iterator stl_ListIterator = st_ConfigList.pStl_ListApp->begin();
+		for (; stl_ListIterator != st_ConfigList.pStl_ListApp->end(); stl_ListIterator++)
 		{
 			//是否启用
 			if (!stl_ListIterator->bEnable)
@@ -51,10 +51,10 @@ BOOL APPManage_Thread_Process()
 				continue;
 			}
 			//重试次数判断
-			if (stl_ListIterator->nErrorTime > st_ServiceConfig.st_Time.nErrorTime)
+			if (stl_ListIterator->nErrorTime > st_ServiceConfig.st_XTime.nTimeError)
 			{
 				stl_ListIterator->bEnable = FALSE;
-				XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_ERROR, "服务名：%s，由于超过指定启动失败次数：%d，这个服务检测功能被关闭...", stl_ListIterator->tszAPPName, st_ServiceConfig.st_Time.nErrorTime);
+				XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_ERROR, "服务名：%s，由于超过指定启动失败次数：%d，这个服务检测功能被关闭...", stl_ListIterator->tszAPPName, st_ServiceConfig.st_XTime.nTimeError);
 				continue;
 			}
 			XENGINE_APPINFO st_APPInfo = *stl_ListIterator;
@@ -191,7 +191,7 @@ BOOL APPManage_Thread_Process()
 			}
 		}
 		//休眠用户配置的时间
-		std::this_thread::sleep_for(std::chrono::seconds(st_ServiceConfig.st_Time.nCheckTime));
+		std::this_thread::sleep_for(std::chrono::seconds(st_ServiceConfig.st_XTime.nTimeCheck));
 	}
 	return 0;
 }

@@ -15,23 +15,17 @@
 //////////////////////////////////////////////////////////////////////////
 typedef struct tag_XEngine_ServiceConfig
 {
-	CHAR tszIPAddr[128];                      //本机IP地址,根据需要配置
 	BOOL bDeamon;                             //是否以守护进程启动,LINUX有效
-	int nPort;                                //服务
+	BOOL bAutoStart;                          //是否自动启动
+	BOOL bHideWnd;                            //是否隐藏
+	struct  
+	{
+		int nTimeError;                       //最大错误次数
+		int nTimeCheck;                       //检测等待时间
+	}st_XTime;
 	struct
 	{
-		int nMaxClient;                       //最大客户端个数
-		int nMaxQueue;                        //最大队列个数
-		int nIOThread;                        //网络IO线程数
-		int nThread;                          //业务任务处理线程数
-	}st_XMax;
-	struct
-	{
-		int nTimeCheck;                       //检测次数
-		int nTimeOut;                         //业务超时时间
-	}st_XTime;                                //次数*时间=超时
-	struct
-	{
+		XCHAR tszLogFile[MAX_PATH];           //日志保存位置
 		int nMaxSize;                         //最大日志大小
 		int nMaxCount;                        //最大日志个数
 		int nLogLeave;                        //日志等级
