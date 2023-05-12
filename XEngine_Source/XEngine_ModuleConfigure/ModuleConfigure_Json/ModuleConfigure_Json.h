@@ -17,8 +17,8 @@ public:
 	CModuleConfigure_Json();
 	~CModuleConfigure_Json();
 public:
-	BOOL ModuleConfigure_Json_File(LPCTSTR lpszConfigFile, XENGINE_SERVICECONFIG* pSt_ServerConfig);
-	BOOL ModuleConfigure_Json_LoadList(LPCSTR lpszConfigFile, XENGINE_CONFIGAPP* pSt_AppConfig);
+	bool ModuleConfigure_Json_File(LPCXSTR lpszConfigFile, XENGINE_SERVICECONFIG* pSt_ServerConfig);
+	bool ModuleConfigure_Json_LoadList(LPCXSTR lpszConfigFile, XENGINE_CONFIGAPP* pSt_AppConfig);
 protected:
 private:
 };

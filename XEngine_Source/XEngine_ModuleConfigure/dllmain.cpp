@@ -1,8 +1,8 @@
 ﻿// dllmain.cpp : 定义 DLL 应用程序的入口点。
 #include "pch.h"
 
-BOOL APIENTRY DllMain( HMODULE hModule,
-                       DWORD  ul_reason_for_call,
+bool APIENTRY DllMain( HMODULE hModule,
+                       XLONG  ul_reason_for_call,
                        LPVOID lpReserved
                      )
 {
@@ -14,6 +14,6 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     case DLL_PROCESS_DETACH:
         break;
     }
-    return TRUE;
+    return true;
 }
 

@@ -15,9 +15,9 @@
 //////////////////////////////////////////////////////////////////////////
 typedef struct tag_XEngine_ServiceConfig
 {
-	BOOL bDeamon;                             //是否以守护进程启动,LINUX有效
-	BOOL bAutoStart;                          //是否自动启动
-	BOOL bHideWnd;                            //是否隐藏
+	bool bDeamon;                             //是否以守护进程启动,LINUX有效
+	bool bAutoStart;                          //是否自动启动
+	bool bHideWnd;                            //是否隐藏
 	struct  
 	{
 		int nTimeError;                       //最大错误次数
@@ -38,10 +38,10 @@ typedef struct tag_XEngine_ServiceConfig
 //用户进程列表
 typedef struct
 {
-	BOOL bEnable;                      //是否启用
-	CHAR tszAPPName[MAX_PATH];         //应用程序名称
-	CHAR tszAPPPath[MAX_PATH];         //应用程序路径
-	BOOL bService;                     //是否为服务启动
+	bool bEnable;                      //是否启用
+	XCHAR tszAPPName[MAX_PATH];         //应用程序名称
+	XCHAR tszAPPPath[MAX_PATH];         //应用程序路径
+	bool bService;                     //是否为服务启动
 	int nReTime;                       //是否自动重启
 	//自定义
 	int nErrorTime;
@@ -54,7 +54,7 @@ typedef struct
 //////////////////////////////////////////////////////////////////////////
 //                        导出函数定义
 //////////////////////////////////////////////////////////////////////////
-extern "C" DWORD ModuleConfigure_GetLastError(int* pInt_ErrorCode = NULL);
+extern "C" XLONG ModuleConfigure_GetLastError(int* pInt_ErrorCode = NULL);
 /************************************************************************/
 /*                        文件配置读取                                  */
 /************************************************************************/
@@ -76,7 +76,7 @@ extern "C" DWORD ModuleConfigure_GetLastError(int* pInt_ErrorCode = NULL);
   意思：是否成功
 备注：
 *********************************************************************/
-extern "C" BOOL ModuleConfigure_Json_File(LPCSTR lpszConfigFile, XENGINE_SERVICECONFIG* pSt_ServerConfig);
+extern "C" bool ModuleConfigure_Json_File(LPCXSTR lpszConfigFile, XENGINE_SERVICECONFIG* pSt_ServerConfig);
 /********************************************************************
 函数名称：ModuleConfigure_Json_LoadList
 函数功能：JSON APP列表配置读取
@@ -95,4 +95,4 @@ extern "C" BOOL ModuleConfigure_Json_File(LPCSTR lpszConfigFile, XENGINE_SERVICE
   意思：是否成功
 备注：
 *********************************************************************/
-extern "C" BOOL ModuleConfigure_Json_LoadList(LPCSTR lpszConfigFile, XENGINE_CONFIGAPP * pSt_AppConfig);
+extern "C" bool ModuleConfigure_Json_LoadList(LPCXSTR lpszConfigFile, XENGINE_CONFIGAPP * pSt_AppConfig);

@@ -1,8 +1,8 @@
 ﻿#include "XDeamon_Hdr.h"
 
-BOOL APPManage_CreateService(XENGINE_APPINFO *pSt_APPInfo)
+bool APPManage_CreateService(XENGINE_APPINFO *pSt_APPInfo)
 {
-	CHAR tszCmdExe[1024];
+	XCHAR tszCmdExe[1024];
 	memset(tszCmdExe, '\0', sizeof(tszCmdExe));
 
 #ifdef _MSC_BUILD
@@ -12,32 +12,32 @@ BOOL APPManage_CreateService(XENGINE_APPINFO *pSt_APPInfo)
 #endif
 	if (-1 == system(tszCmdExe))
 	{
-		return FALSE;
+		return false;
 	}
 #ifdef _MSC_BUILD
 	memset(tszCmdExe, '\0', sizeof(tszCmdExe));
 	sprintf(tszCmdExe, "sc start %s", pSt_APPInfo->tszAPPName);
 	if (-1 == system(tszCmdExe))
 	{
-		return FALSE;
+		return false;
 	}
 #endif
-	return TRUE;
+	return true;
 }
-BOOL APPManage_CreateProcess(XENGINE_APPINFO* pSt_APPInfo, DWORD* pdwProcessID)
+bool APPManage_CreateProcess(XENGINE_APPINFO* pSt_APPInfo, XLONG* pdwProcessID)
 {
-	CHAR tszCmdExe[1024];
+	XCHAR tszCmdExe[1024];
 	memset(tszCmdExe, '\0', sizeof(tszCmdExe));
 
 	sprintf(tszCmdExe, "%s%s", pSt_APPInfo->tszAPPPath, pSt_APPInfo->tszAPPName);
 	if (!SystemApi_Process_CreateProcess(pdwProcessID, tszCmdExe))
 	{
-		return FALSE;
+		return false;
 	}
-	return TRUE;
+	return true;
 }
 
-BOOL APPManage_Thread_Process()
+bool APPManage_Thread_Process()
 {
 	while (bIsRun)
 	{
@@ -53,7 +53,7 @@ BOOL APPManage_Thread_Process()
 			//重试次数判断
 			if (stl_ListIterator->nErrorTime > st_ServiceConfig.st_XTime.nTimeError)
 			{
-				stl_ListIterator->bEnable = FALSE;
+				stl_ListIterator->bEnable = false;
 				XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_ERROR, "服务名：%s，由于超过指定启动失败次数：%d，这个服务检测功能被关闭...", stl_ListIterator->tszAPPName, st_ServiceConfig.st_XTime.nTimeError);
 				continue;
 			}
@@ -79,7 +79,7 @@ BOOL APPManage_Thread_Process()
 					}
 					else
 					{
-						DWORD dwProcessId = 0;
+						XLONG dwProcessId = 0;
 						SystemApi_Process_Stop(stl_ListIterator->tszAPPName);
 						if (APPManage_CreateProcess(&st_APPInfo, &dwProcessId))
 						{
@@ -129,7 +129,7 @@ BOOL APPManage_Thread_Process()
 				}
 				else
 				{
-					DWORD dwProcessId = 0;
+					XLONG dwProcessId = 0;
 					if (APPManage_CreateProcess(&st_APPInfo, &dwProcessId))
 					{
 						XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_INFO, "崩溃重启,检查到进程不存在,启动进程：%s 成功，进程ID：%d...", stl_ListIterator->tszAPPName, dwProcessId);

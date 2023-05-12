@@ -1,5 +1,5 @@
 ﻿#pragma once
 
-BOOL APPManage_CreateService(XENGINE_APPINFO* pSt_APPInfo);
-BOOL APPManage_CreateProcess(XENGINE_APPINFO* pSt_APPInfo, DWORD* pdwProcessID);
-BOOL APPManage_Thread_Process();
+bool APPManage_CreateService(XENGINE_APPINFO* pSt_APPInfo);
+bool APPManage_CreateProcess(XENGINE_APPINFO* pSt_APPInfo, XLONG* pdwProcessID);
+bool APPManage_Thread_Process();

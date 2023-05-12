@@ -5,7 +5,7 @@ PLATDIR =
 RELEASE = 0
 UNICODE = 0
 LOADHDR = -I ./ -I ../XEngine_ThirdPart/jsoncpp
-LOADSO = -L /usr/local/lib/XEngine_Release/XEngine_BaseLib -L /usr/local/lib/XEngine_Release/XEngine_HelpComponents -L /usr/local/lib/XEngine_Release/XEngine_SystemSdk
+LOADSO = -L /usr/local/lib/XEngine_Release/XEngine_BaseLib -L /usr/local/lib/XEngine_Release/XEngine_HelpComponents -L /usr/local/lib/XEngine_Release/XEngine_SystemSdk \
          -L ../../XEngine_ModuleConfigure \
          -L ../../XEngine_ThirdPart/jsoncpp 
 LIB = -lXEngine_BaseLib -lHelpComponents_XLog -lXEngine_SystemApi \
@@ -54,8 +54,8 @@ XDeamon_Config.o:./XDeamon_Config.cpp
 XDeamon_Process.o:./XDeamon_Process.cpp
 	$(CC) $(DEBUG) $(FLAGS) $(UNICODE) $(PLATVER) $(LOADHDR) ./XDeamon_Process.cpp 
 		
-XEngine_DeamonApp.o:./XEngine_DeamonApp.cpp             
-	$(CC) $(DEBUG) $(FLAGS) $(UNICODE) $(PLATVER) $(LOADHDR) ./XEngine_DeamonApp.cpp   
+XDeamon_DeamonApp.o:./XDeamon_DeamonApp.cpp             
+	$(CC) $(DEBUG) $(FLAGS) $(UNICODE) $(PLATVER) $(LOADHDR) ./XDeamon_DeamonApp.cpp   
 
 
 InstallAll:InstallApp
