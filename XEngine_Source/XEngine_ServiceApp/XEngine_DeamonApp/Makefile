@@ -1,24 +1,25 @@
 CC = g++ -Wall -std=c++17
+PLATFORM = linux
+PLATVER = 
+PLATDIR = 
 RELEASE = 0
-UNICODE = 0  
-LOADBIN = -L ../../XEngine_ThirdPart/jsoncpp -L ../../XEngine_ModuleConfigure -L ../../XEngine_ModuleDatabase -L ../../XEngine_ModuleProtocol
-LIB = -lXEngine_BaseLib -lXEngine_Algorithm -lXEngine_Core -lXEngine_ManagePool -lHelpComponents_XLog -lHelpComponents_Packets -ljsoncpp -lXEngine_ModuleConfigure -lXEngine_ModuleDatabase -lXEngine_ModuleProtocol
-LIBEX = -ldl -lpthread
-LOADSO = -Wl,-rpath=./,--disable-new-dtags
-LIBINCLUDE = XEngine_Configure.o XEngine_Network.o XEngine_CenterTask.o XEngine_CenterApp.o
-
-ifeq ($(shell uname),Darwin)
-	LOADSO = 
-else
-	LOADBIN += -L /usr/local/lib/XEngine_Release/XEngine_BaseLib -L /usr/local/lib/XEngine_Release/XEngine_Core -L /usr/local/lib/XEngine_Release/XEngine_HelpComponents
-endif
+UNICODE = 0
+LOADHDR = -I ./ -I ../XEngine_ThirdPart/jsoncpp
+LOADSO = -L /usr/local/lib/XEngine_Release/XEngine_BaseLib -L /usr/local/lib/XEngine_Release/XEngine_HelpComponents -L /usr/local/lib/XEngine_Release/XEngine_SystemSdk
+         -L ../../XEngine_ModuleConfigure \
+         -L ../../XEngine_ThirdPart/jsoncpp 
+LIB = -lXEngine_BaseLib -lHelpComponents_XLog -lXEngine_SystemApi \
+      -lXEngine_ModuleConfigure \
+      -ljsoncpp 
+LIBEX = 
+OBJECTS = XDeamon_Config.o XDeamon_Process.o XDeamon_DeamonApp.o
 
 ifeq ($(RELEASE),1)
-FLAGS = -c -O2 
+FLAGS = -c 
 DEBUG = 
 else
-FLAGS = -c
-DEBUG = -g
+FLAGS = -c -lc_p
+DEBUG = -g -pg 
 endif
 
 ifeq ($(UNICODE),1)
@@ -27,27 +28,43 @@ else
 UNICODE = 
 endif
 
-all:$(LIBINCLUDE)
-	$(CC) $(DEBUG) $(LIBINCLUDE) -o XEngine_CenterApp $(LOADBIN) $(LIB) $(LIBEX) $(LOADSO)
+ifeq ($(PLATFORM),linux)
+	ifeq (/etc/redhat-release,$(wildcard /etc/redhat-release))
+		PLATVER = -D __CENTOS__
+		PLATDIR = XEngine_Linux/Centos
+	else
+		PLATVER = -D __UBUNTU__
+		PLATDIR = XEngine_Linux/Ubuntu
+	endif
+	LIBEX = -lpthread -lrt -ldl
+	LOADBIN = -Wl,-rpath=./,--disable-new-dtags
+else ifeq ($(PLATFORM),mac)
+	CC += -Wno-deprecated-declarations
+	PLATVER = -D __MACOS__
+	PLATDIR = XEngine_Mac
+	LIBEX = -lpthread -ldl
+	LOADBIN = -Wl,-rpath,@loader_path/./
+endif
+
+all:$(OBJECTS)
+	$(CC) $(DEBUG) $(OBJECTS) -o XEngine_DeamonApp $(LIB) $(LIBEX) $(LOADSO) $(LOADBIN)
   
-XEngine_Configure.o:./XEngine_Configure.cpp
-	$(CC) $(DEBUG) $(FLAGS) $(UNICODE) ./XEngine_Configure.cpp
-XEngine_Network.o:./XEngine_Network.cpp
-	$(CC) $(DEBUG) $(FLAGS) $(UNICODE) ./XEngine_Network.cpp 
-XEngine_CenterTask.o:./XEngine_CenterTask.cpp
-	$(CC) $(DEBUG) $(FLAGS) $(UNICODE) ./XEngine_CenterTask.cpp
+XDeamon_Config.o:./XDeamon_Config.cpp
+	$(CC) $(DEBUG) $(FLAGS) $(UNICODE) $(PLATVER) $(LOADHDR) ./XDeamon_Config.cpp
+XDeamon_Process.o:./XDeamon_Process.cpp
+	$(CC) $(DEBUG) $(FLAGS) $(UNICODE) $(PLATVER) $(LOADHDR) ./XDeamon_Process.cpp 
 		
-XEngine_CenterApp.o:./XEngine_CenterApp.cpp             
-	$(CC) $(DEBUG) $(FLAGS) $(UNICODE) ./XEngine_CenterApp.cpp   
+XEngine_DeamonApp.o:./XEngine_DeamonApp.cpp             
+	$(CC) $(DEBUG) $(FLAGS) $(UNICODE) $(PLATVER) $(LOADHDR) ./XEngine_DeamonApp.cpp   
 
 
 InstallAll:InstallApp
-InstallApp:./XEngine_CenterApp
-	cp -f ./XEngine_CenterApp ../../../XEngine_Release/XEngine_CenterApp
+InstallApp:./XEngine_DeamonApp
+	cp -f ./XEngine_DeamonApp ../../../XEngine_Release/XEngine_DeamonApp
 
 CleanAll:CleanObj CleanMk
 CleanObj:                                              
 	rm *.o
 CleanMk:                                  
-	rm XEngine_CenterApp     
+	rm XEngine_DeamonApp     
 	       
