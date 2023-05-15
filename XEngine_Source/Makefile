@@ -7,10 +7,11 @@ FLAGS=
 THIRDPART_MODULE_JSONCPP = ./XEngine_ThirdPart/jsoncpp
 
 MODULE_CONFIGURE_PATH = ./XEngine_ModuleConfigure
+MODULE_HELP_PATH = ./XEngine_ModuleHelp
 APP_DEAMON_PATH = ./XEngine_ServiceApp/XEngine_DeamonApp
 
 XENGINE_MODULES = libjsoncpp.so                                   \
-                  libXEngine_ModuleConfigure.so                   \
+                  libXEngine_ModuleConfigure.so libXEngine_ModuleHelp.so                  \
 				  XEngine_DeamonApp.exe 
 .PHONY:MakeAll 
 MakeAll:$(XENGINE_MODULES)
@@ -20,6 +21,8 @@ libjsoncpp.so:
 
 libXEngine_ModuleConfigure.so:
 	make -C $(MODULE_CONFIGURE_PATH) PLATFORM=$(PLATFORM) $(FLAGS)
+libXEngine_ModuleHelp.so:
+	make -C $(MODULE_HELP_PATH) PLATFORM=$(PLATFORM) $(FLAGS)
 
 XEngine_DeamonApp.exe:
 	make -C $(APP_DEAMON_PATH) PLATFORM=$(PLATFORM) $(FLAGS)

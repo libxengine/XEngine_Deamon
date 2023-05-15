@@ -6,10 +6,10 @@ RELEASE = 0
 UNICODE = 0
 LOADHDR = -I ./ -I ../XEngine_ThirdPart/jsoncpp
 LOADSO = -L /usr/local/lib/XEngine_Release/XEngine_BaseLib -L /usr/local/lib/XEngine_Release/XEngine_HelpComponents -L /usr/local/lib/XEngine_Release/XEngine_SystemSdk \
-         -L ../../XEngine_ModuleConfigure \
+         -L ../../XEngine_ModuleConfigure -L ../../XEngine_ModuleHelp \
          -L ../../XEngine_ThirdPart/jsoncpp 
 LIB = -lXEngine_BaseLib -lHelpComponents_XLog -lXEngine_SystemApi \
-      -lXEngine_ModuleConfigure \
+      -lXEngine_ModuleConfigure -lXEngine_ModuleHelp \
       -ljsoncpp 
 LIBEX = 
 OBJECTS = XDeamon_Config.o XDeamon_Process.o XDeamon_DeamonApp.o

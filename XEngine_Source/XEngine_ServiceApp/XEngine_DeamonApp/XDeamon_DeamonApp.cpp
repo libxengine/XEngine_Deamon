@@ -58,7 +58,7 @@ int main(int argc, char** argv)
 	signal(SIGABRT, ServiceApp_Stop);
 	XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_INFO, "启动服务中，初始化信号处理成功");
 
-	if (!ModuleHelp_APISystem_AutoStart(lpszWndName, 0, st_ServiceConfig.bAutoStart))
+	if (!ModuleHelp_APISystem_AutoStart(lpszWndName, st_ServiceConfig.bAutoStart))
 	{
 		XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_ERROR, "启动服务中，注册软件开机启动失败!错误:%lX", ModuleHelp_GetLastError());
 		goto NETSERVICE_APPEXIT;
