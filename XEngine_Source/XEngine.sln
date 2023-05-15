@@ -18,6 +18,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jsoncpp", "XEngine_ThirdPar
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XEngine_DeamonApp", "XEngine_ServiceApp\XEngine_DeamonApp\XEngine_DeamonApp.vcxproj", "{A94BA861-930F-46B1-B524-2D37E5ADF0FA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XEngine_ModuleHelp", "XEngine_ModuleHelp\XEngine_ModuleHelp.vcxproj", "{911A575F-21C7-4987-95F3-0AAEBBAB1ACF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -50,6 +52,14 @@ Global
 		{A94BA861-930F-46B1-B524-2D37E5ADF0FA}.Release|x64.Build.0 = Release|x64
 		{A94BA861-930F-46B1-B524-2D37E5ADF0FA}.Release|x86.ActiveCfg = Release|Win32
 		{A94BA861-930F-46B1-B524-2D37E5ADF0FA}.Release|x86.Build.0 = Release|Win32
+		{911A575F-21C7-4987-95F3-0AAEBBAB1ACF}.Debug|x64.ActiveCfg = Debug|x64
+		{911A575F-21C7-4987-95F3-0AAEBBAB1ACF}.Debug|x64.Build.0 = Debug|x64
+		{911A575F-21C7-4987-95F3-0AAEBBAB1ACF}.Debug|x86.ActiveCfg = Debug|Win32
+		{911A575F-21C7-4987-95F3-0AAEBBAB1ACF}.Debug|x86.Build.0 = Debug|Win32
+		{911A575F-21C7-4987-95F3-0AAEBBAB1ACF}.Release|x64.ActiveCfg = Release|x64
+		{911A575F-21C7-4987-95F3-0AAEBBAB1ACF}.Release|x64.Build.0 = Release|x64
+		{911A575F-21C7-4987-95F3-0AAEBBAB1ACF}.Release|x86.ActiveCfg = Release|Win32
+		{911A575F-21C7-4987-95F3-0AAEBBAB1ACF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

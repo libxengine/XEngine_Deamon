@@ -27,11 +27,11 @@ int main(int argc, char** argv)
 #ifdef _MSC_BUILD
 	WSADATA st_WSAData;
 	WSAStartup(MAKEWORD(2, 2), &st_WSAData);
-	LPCXSTR lpszWndName = _X("");
 #endif
 
 	bIsRun = true;
 	HELPCOMPONENTS_XLOG_CONFIGURE st_XLogConfig;
+	LPCXSTR lpszWndName = _X("XEngine_DeamonApp");
 
 	memset(&st_XLogConfig, '\0', sizeof(HELPCOMPONENTS_XLOG_CONFIGURE));
 	memset(&st_ServiceConfig, '\0', sizeof(XENGINE_SERVICECONFIG));
@@ -58,37 +58,27 @@ int main(int argc, char** argv)
 	signal(SIGABRT, ServiceApp_Stop);
 	XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_INFO, "启动服务中，初始化信号处理成功");
 
-	if (st_ServiceConfig.bAutoStart)
+	if (!ModuleHelp_APISystem_AutoStart(lpszWndName, 0, st_ServiceConfig.bAutoStart))
 	{
-		if (!SystemApi_Process_AutoStart("XEngine", "XEngine_DeamonApp"))
-		{
-			XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_ERROR, "启动服务中，注册软件开机启动失败!错误:%lX", SystemApi_GetLastError());
-			goto NETSERVICE_APPEXIT;
-		}
-		XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_INFO, "启动服务中，注册软件开机启动成功");
+		XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_ERROR, "启动服务中，注册软件开机启动失败!错误:%lX", ModuleHelp_GetLastError());
+		goto NETSERVICE_APPEXIT;
 	}
+	XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_INFO, _X("启动服务中，设置软件开机启动标志成功,标志位:%d"), st_ServiceConfig.bAutoStart);
+
 	if (st_ServiceConfig.bHideWnd)
 	{
 #ifdef _MSC_BUILD
-		bool bIsFound = false;
 		SetConsoleTitleA(lpszWndName);
-		HWND hWnd = GetDesktopWindow();
-		hWnd = GetWindow(hWnd, GW_CHILD);
-		XCHAR tszTitle[MAX_PATH];
-		while (NULL != hWnd)
+		HWND hWnd = FindWindowA(NULL, lpszWndName);
+
+		if (NULL == hWnd)
 		{
-			memset(tszTitle, '\0', MAX_PATH);
-			GetWindowTextA(hWnd, tszTitle, MAX_PATH);
-			if (0 == strncmp(lpszWndName, tszTitle, strlen(lpszWndName)))
-			{
-				bIsFound = true;
-				break;
-			}
-			hWnd = GetNextWindow(hWnd, GW_HWNDNEXT);
+			XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_ERROR, _X("启动服务中，设置窗口隐藏失败,没有找到句柄"));
 		}
-		if (bIsFound)
+		else
 		{
 			ShowWindow(hWnd, SW_HIDE);
+			XLOG_PRINT(xhLog, XENGINE_HELPCOMPONENTS_XLOG_IN_LOGLEVEL_INFO, _X("启动服务中，设置窗口隐藏成功"));
 		}
 #endif
 	}
