@@ -1,0 +1,13 @@
+XEngine_Deamon V1.0.0.1001
+
+添加:帮助模块API函数支持
+添加:JSON配置模块支持
+添加:进程守护列表支持
+添加:自启动支持
+添加:启动隐藏窗口支持
+
+added:help module of system api support
+added:json module of configure support
+added:process deamon support
+added:auto start support
+added:start hide window
