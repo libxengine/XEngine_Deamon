@@ -27,6 +27,8 @@ using namespace std;
 #include <XEngine_Include/XEngine_SystemSdk/SystemApi_Error.h>
 #include "../../XEngine_ModuleConfigure/ModuleConfig_Define.h"
 #include "../../XEngine_ModuleConfigure/ModuleConfig_Error.h"
+#include "../../XEngine_ModuleHelp/ModuleHelp_Define.h"
+#include "../../XEngine_ModuleHelp/ModuleHelp_Error.h"
 #include "XDeamon_Process.h"
 #include "XDeamon_Config.h"
 /********************************************************************
@@ -54,14 +56,18 @@ extern XENGINE_CONFIGAPP st_ConfigList;
 #ifdef _WIN64
 #ifdef _DEBUG
 #pragma comment(lib,"../../x64/Debug/XEngine_ModuleConfigure.lib")
+#pragma comment(lib,"../../x64/Debug/XEngine_ModuleHelp.lib")
 #else
 #pragma comment(lib,"../../x64/Release/XEngine_ModuleConfigure.lib")
+#pragma comment(lib,"../../x64/Release/XEngine_ModuleHelp.lib")
 #endif
 #else
 #ifdef _DEBUG
 #pragma comment(lib,"../../Debug/XEngine_ModuleConfigure.lib")
+#pragma comment(lib,"../../Debug/XEngine_ModuleHelp.lib")
 #else
 #pragma comment(lib,"../../Release/XEngine_ModuleConfigure.lib")
+#pragma comment(lib,"../../Release/XEngine_ModuleHelp.lib")
 #endif
 #endif
 #endif
